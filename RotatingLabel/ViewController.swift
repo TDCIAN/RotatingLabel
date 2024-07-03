@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     
     private lazy var rotatingLabelsStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.clipsToBounds = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 2
@@ -26,7 +27,7 @@ class ViewController: UIViewController {
         
         self.setup()
         
-        self.setStackViewLabelRotation(with: "$1,000,000,000")
+        self.setStackViewLabelRotation(with: "$1,234,567,890")
     }
     
     private func setup() {
@@ -38,15 +39,54 @@ class ViewController: UIViewController {
     }
     
     private func setStackViewLabelRotation(with string: String) {
-        self.rotatingLabelsStackView.makeRotatingTextLabel(
+//        self.rotatingLabelsStackView.makeRotatingTextLabel(
+//            string: string,
+//            font: .systemFont(ofSize: 16, weight: .bold),
+//            textColor: .systemBlue
+//        )
+        self.rotatingLabelsStackView.makeRotatingTextLabel2(
             string: string,
-            font: .systemFont(ofSize: 16, weight: .bold),
+            font: .systemFont(ofSize: 32, weight: .bold),
             textColor: .systemBlue
         )
     }
 }
 
 extension UIStackView {
+    func makeRotatingTextLabel2(string: String, font: UIFont, textColor: UIColor) {
+        let labels: [UILabel] = string.map { character in
+            let label = UILabel()
+            label.text = String(character)
+            label.font = font
+            label.textColor = textColor
+            return label
+        }
+        
+        labels.forEach { label in
+            self.addArrangedSubview(label)
+        }
+        
+        for (index, label) in labels.enumerated() {
+            guard Int(label.text ?? "") != nil else { continue } // With this guard state, only integer character can be rotated.
+
+            let originalText = label.text
+            label.text = "\(Int.random(in: 1...10))"
+            label.alpha = 0.0
+            label.frame.origin.y = -40
+            UIView.animate(
+                withDuration: 1,
+                delay: Double(index) * 0.02,
+                usingSpringWithDamping: 0.8,
+                initialSpringVelocity: 2,
+                options: .curveEaseIn,
+                animations: {
+                    label.text = originalText
+                    label.alpha = 1.0
+                    label.frame.origin.y = 0
+                })
+        }
+    }
+    
     func makeRotatingTextLabel(string: String, font: UIFont, textColor: UIColor) {
         let labels: [UILabel] = string.map { character in
             let label = UILabel()
