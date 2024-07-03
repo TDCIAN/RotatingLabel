@@ -19,6 +19,18 @@ class ViewController: UIViewController {
         stackView.layer.borderWidth = 1
         return stackView
     }()
+    
+    private lazy var rotatingLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .systemPink
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textAlignment = .left
+        label.text = "$7,777,777"
+        label.layer.borderColor = UIColor.green.cgColor
+        label.layer.borderWidth = 1
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +38,9 @@ class ViewController: UIViewController {
         
         self.setup()
         
-        self.setLabelRotation(with: "$1,000,000,000")
+//        self.rotatingLabel.makeRotatingNumber()
+        
+        self.setStackViewLabelRotation(with: "$1,000,000,000")
     }
     
     private func setup() {
@@ -35,9 +49,15 @@ class ViewController: UIViewController {
             self.rotatingLabelsStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.rotatingLabelsStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+        
+//        self.view.addSubview(self.rotatingLabel)
+//        NSLayoutConstraint.activate([
+//            self.rotatingLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            self.rotatingLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+//        ])
     }
     
-    private func setLabelRotation(with string: String) {
+    private func setStackViewLabelRotation(with string: String) {
         self.rotatingLabelsStackView.makeRotatingTextLabel(
             string: string,
             font: .systemFont(ofSize: 16, weight: .bold),
@@ -90,10 +110,50 @@ extension UIStackView {
             // MARK: (3) Repeat Count
             // If you set repeatCount as .infinity, it will rotate again and again.
             
-            animation.repeatCount = 1
-//            animation.repeatCount = .infinity
+//            animation.repeatCount = 1
+            animation.repeatCount = .infinity
             
             label.layer.add(animation, forKey: "rotation")
+        }
+    }
+}
+
+extension UILabel {
+    func makeRotatingNumber() {
+        
+        guard let labelText = self.text else { return }
+        
+        let characters = Array(labelText)
+        let labelWidth: CGFloat = 20
+        let spacing: CGFloat = 0
+        let totalWidth = CGFloat(characters.count) * (labelWidth + spacing)
+        
+        for (index, character) in characters.enumerated() {
+            let label = UILabel()
+            label.layer.borderColor = UIColor.yellow.cgColor
+            label.layer.borderWidth = 1
+            label.text = String(character)
+            label.font = self.font
+            label.textAlignment = .center
+            label.textColor = self.textColor
+            label.frame = CGRect(
+                x: ((self.superview?.bounds.width ?? 0) - totalWidth) / 2 + CGFloat(index) * (labelWidth + spacing),
+                y: (self.superview?.bounds.height ?? 0) / 2,
+                width: labelWidth,
+                height: self.intrinsicContentSize.height
+            )
+            self.superview?.addSubview(label)
+            
+            if Int(label.text ?? "") != nil {
+                let animation = CABasicAnimation(keyPath: "transform.rotation.x")
+                animation.fromValue = 0
+                animation.toValue = Double.pi * 2
+                animation.duration = 1
+                animation.repeatCount = .infinity
+                animation.beginTime = CACurrentMediaTime() + Double(index) * 0.5
+                
+                label.layer.add(animation, forKey: "rotation")
+            }
         }
     }
 }
