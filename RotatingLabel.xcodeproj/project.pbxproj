@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A913B98C2C395A02002222BD /* CountDonwAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913B98B2C395A02002222BD /* CountDonwAnimationViewController.swift */; };
+		A913B98E2C3975B6002222BD /* CountPushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A913B98D2C3975B6002222BD /* CountPushViewController.swift */; };
 		A956B34F2C34344500FF8ADF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956B34E2C34344500FF8ADF /* AppDelegate.swift */; };
 		A956B3512C34344500FF8ADF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956B3502C34344500FF8ADF /* SceneDelegate.swift */; };
 		A956B3532C34344500FF8ADF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956B3522C34344500FF8ADF /* ViewController.swift */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A913B98B2C395A02002222BD /* CountDonwAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDonwAnimationViewController.swift; sourceTree = "<group>"; };
+		A913B98D2C3975B6002222BD /* CountPushViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountPushViewController.swift; sourceTree = "<group>"; };
 		A956B34B2C34344500FF8ADF /* RotatingLabel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotatingLabel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A956B34E2C34344500FF8ADF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A956B3502C34344500FF8ADF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,9 +61,11 @@
 				A956B34E2C34344500FF8ADF /* AppDelegate.swift */,
 				A956B3502C34344500FF8ADF /* SceneDelegate.swift */,
 				A956B3522C34344500FF8ADF /* ViewController.swift */,
+				A913B98B2C395A02002222BD /* CountDonwAnimationViewController.swift */,
 				A956B3572C34344600FF8ADF /* Assets.xcassets */,
 				A956B3592C34344600FF8ADF /* LaunchScreen.storyboard */,
 				A956B35C2C34344600FF8ADF /* Info.plist */,
+				A913B98D2C3975B6002222BD /* CountPushViewController.swift */,
 			);
 			path = RotatingLabel;
 			sourceTree = "<group>";
@@ -134,7 +140,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A913B98E2C3975B6002222BD /* CountPushViewController.swift in Sources */,
 				A956B3532C34344500FF8ADF /* ViewController.swift in Sources */,
+				A913B98C2C395A02002222BD /* CountDonwAnimationViewController.swift in Sources */,
 				A956B34F2C34344500FF8ADF /* AppDelegate.swift in Sources */,
 				A956B3512C34344500FF8ADF /* SceneDelegate.swift in Sources */,
 			);
