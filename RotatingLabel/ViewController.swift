@@ -171,10 +171,8 @@ extension UIStackView {
         for (index, label) in labels.enumerated() {
             guard let labelNumber = Int(label.text ?? "") else { continue }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(index * 100)) {
-                label.config(num: labelNumber, rotationCount: 2, duration: 0.05) // use it
-//                label.config(num: labelNumber, cycle: 0, duration: 1)
-                label.animate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(index * 50)) {
+                label.config(num: labelNumber, rotationCount: 2, duration: 0.1)
             }
         }
     }
@@ -188,7 +186,11 @@ class CountPushLabel: UILabel, CAAnimationDelegate {
         didSet {
             if self.currentLabelNumber > 9 {
                 self.rotationCount -= 1
-                self.currentLabelNumber = 0
+                if self.originalLabelNumber % 2 == 0 {
+                    self.currentLabelNumber = 0
+                } else {
+                    self.currentLabelNumber = 1
+                }
             }
         }
     }
@@ -201,10 +203,12 @@ class CountPushLabel: UILabel, CAAnimationDelegate {
         self.currentLabelNumber = num
         self.duration = duration
         self.text = "\(num)"
+        
+        self.animate()
     }
     
     func animate() {
-        self.currentLabelNumber += 1
+        self.currentLabelNumber += 2
         self.text = "\(self.currentLabelNumber)"
         self.pushAnimate()
     }
