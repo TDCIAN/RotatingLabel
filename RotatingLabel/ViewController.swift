@@ -191,6 +191,7 @@ class CountPushLabel: UILabel, CAAnimationDelegate {
                 } else {
                     self.currentLabelNumber = 1
                 }
+                
             }
         }
     }
